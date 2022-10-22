@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SystemJS Example</title>
+  <link rel="stylesheet" href="index.css">
+  <!-- https://github.com/babel/babel/issues/340#issuecomment-113982116 -->
+  <meta charset="utf-8">
+</head>
+
+<!-- Load SystemJS -->
+<script type="systemjs-importmap">
+    {
+      "imports": {
+        "dogs": "./js/dogs.js",
+        "loadedMsg": "./js/loadedMsg.js",
+        "importedDogs": "./node_modules/garretts-dogs/index.js"
+      }
+    }
+</script>
+
+<script src="./node_modules/systemjs/dist/s.js"></script>
+<script src="./node_modules/systemjs-babel/dist/systemjs-babel.js"></script>
+
+<script>
+    function loadInnerHTMLModule() {
+        // Import a package from local that updates html
+        console.log("Preparing to import loadedMsg!");
+        System.import('loadedMsg').then(loadedMsg => {
+            console.log('loadedMsg module was loaded', loadedMsg);
+            System.resolve('loadedMsg');
+        });
+    }
+
+    function loadFunctionModules() {
+        // Import a package installed with npm
+        console.log("Preparing to import importedDogs!");
+        System.import('importedDogs').then(importedDogs => {
+            console.log('importedDogs module was loaded', importedDogs);
+            System.resolve('importedDogs');
+        });
+
+        // Import a package from local js directory
+        console.log("Preparing to import dogs!");
+        System.import('dogs').then(dogs => {
+            console.log('dogs module was loaded', dogs);
+            System.resolve('dogs');
+        });
+    }
+</script>
+
+<h1>SystemJS Example</h1>
+
+<p id="is-loaded" style="color: red;">Module is not loaded yet!</p>
+
+<button onclick="loadInnerHTMLModule()" style="background-color: lightblue;">Import and resolve a module with SystemJS that will change the DOM</button>
+
+<button onclick="loadFunctionModules()" style="background-color: lightcyan;">Import and resolve a module with SystemJS exports functions</button>
