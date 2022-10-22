@@ -1,5 +1,11 @@
 # SystemJS Example
 
+## Demo
+
+![Demo Gif](SystemJS_Demo_AdobeExpress.gif)
+
+## Run on Your Machine
+
 1. Run `http-server`
 2. Load http://127.0.0.1:8080 in a broser
 3. Open Chrome DevTools
